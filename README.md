@@ -1,2 +1,17 @@
-# api-validator-python
-eLife API Validator for Python
+# eLife API Validator for Python
+-
+
+Dependencies
+------------
+
+-
+
+Installation
+------------
+
+-
+
+Usage
+-----
+
+-
