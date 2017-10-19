@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+echo "[-] update.sh"
+
+git clone https://github.com/elifesciences/api-raml.git
+
+cp -a api-raml/dist/model/*.json ../elife_api_validator/schemas
+
+echo "[✓] update.sh"
