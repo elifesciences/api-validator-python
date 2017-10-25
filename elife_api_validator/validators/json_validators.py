@@ -22,15 +22,14 @@ class JSONResponseValidator(ResponseValidator):
 
     valid_type_pattern = 'application\/([a-z-\.]*\+)json'
 
-    def __init__(self, schema_finder: SchemaFinder = None) -> None:
+    def __init__(self, schema_finder: SchemaFinder = PathBasedSchemaFinder()) -> None:
         """
-
-        :param schema_finder:
+        :param schema_finder: :class: `SchemaFinder`
         """
-        self._schema_finder = schema_finder
+        self.schema_finder = schema_finder
 
     @staticmethod
-    def extract_response_data(response: Response) -> Optional[dict]:
+    def _extract_response_data(response: Response) -> Optional[dict]:
         """Attempt to extract JSON data from the response.
         We currently support the following Response types:
 
@@ -55,7 +54,7 @@ class JSONResponseValidator(ResponseValidator):
                 raise JSONDataNotFound('Unable to find JSON data in the response')
 
     @staticmethod
-    def format_json_str(data: str) -> str:
+    def _format_json_str(data: str) -> str:
         """Formats a string containing JSON data into a readable,
         indented form.
 
@@ -77,7 +76,7 @@ class JSONResponseValidator(ResponseValidator):
 
         schema_path = self.schema_finder.find_schema_for(media_type=media_type)
 
-        data = self.extract_response_data(response)
+        data = self._extract_response_data(response)
 
         try:
             with open(schema_path) as schema_file:
@@ -85,15 +84,9 @@ class JSONResponseValidator(ResponseValidator):
         except ValidationError as err:
 
             output = '{0},\n\ndata: {1}\n\nschema: {2}'.format(err.message,
-                                                               self.format_json_str(err.instance),
-                                                               self.format_json_str(err.schema))
+                                                               self._format_json_str(err.instance),
+                                                               self._format_json_str(err.schema))
             raise ValidationError(output)
-
-    @property
-    def schema_finder(self):
-        if not self._schema_finder:
-            self._schema_finder = PathBasedSchemaFinder()
-        return self._schema_finder
 
     def __repr__(self):
         return '{0}({1})'.format(self.__class__.__name__, self.schema_finder)

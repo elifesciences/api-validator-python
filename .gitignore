@@ -1,13 +1,7 @@
 /api-raml/
 
-test/__pycache__/
+__pycache__/
 
-venv/
+/venv/
 
-elife_api_validator/__pycache__/
-
-elife_api_validator/validators/__pycache__/
-
-test/validators/__pycache__/
-
-build/
+/build/

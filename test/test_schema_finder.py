@@ -50,3 +50,15 @@ def test_it_should_find_the_correct_alternate_version_from_media_type():
     finder = PathBasedSchemaFinder(schema_dir='test/test_schemas')
     media_type = MediaType('application/vnd.elife.valid-data+json; version=2')
     assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v2.json'
+
+
+def test_it_can_get_schema_str_from_media_type():
+    content_type = 'application/vnd.elife.article-list+json; version=1'
+    media_type = MediaType(content_type)
+    assert PathBasedSchemaFinder.get_schema_name(media_type) == 'article-list.v1'
+
+
+def test_it_will_provide_a_default_version_if_not_present():
+    content_type = 'application/vnd.elife.article-list+json'
+    media_type = MediaType(content_type)
+    assert PathBasedSchemaFinder.get_schema_name(media_type) == 'article-list.v1'

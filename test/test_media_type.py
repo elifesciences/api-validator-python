@@ -21,12 +21,12 @@ def test_it_will_fail_to_match_invalid_type():
 
 def test_it_can_unpack_single_param():
     params = 'version=1'
-    assert MediaType.unpack_params(params) == {'version': '1'}
+    assert MediaType._unpack_params(params) == {'version': '1'}
 
 
 def test_it_can_unpack_mulitple_params():
     params = 'version=1; charset=utf-8'
-    assert MediaType.unpack_params(params) == {'version': '1', 'charset': 'utf-8'}
+    assert MediaType._unpack_params(params) == {'version': '1', 'charset': 'utf-8'}
 
 
 def test_it_can_parse_content_type_on_init():
@@ -36,19 +36,7 @@ def test_it_can_parse_content_type_on_init():
     assert len(media_type.params) == 1
 
 
-def test_it_can_get_type_str():
-    content_type = 'application/vnd.elife.article-list+json; version=1'
-    media_type = MediaType(content_type)
-    assert media_type.get_type_str() == 'article-list.v1'
-
-
 def test_it_can_get_content_type():
     content_type = 'application/vnd.elife.article-list+json; version=1'
     media_type = MediaType(content_type)
     assert media_type.content_type == content_type
-
-
-def test_it_will_provide_a_default_version_if_not_present():
-    content_type = 'application/vnd.elife.article-list+json'
-    media_type = MediaType(content_type)
-    assert media_type.get_type_str() == 'article-list.v1'
