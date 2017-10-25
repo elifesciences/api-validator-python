@@ -1,42 +1,99 @@
-from jsonschema import validate as validate_json
+from abc import ABC, abstractmethod
+import json
+from typing import Optional
 
-from elife_api_validator.validators.message_validator import MessageValidator
+from jsonschema import validate as validate_json
+from jsonschema import ValidationError
+
+from elife_api_validator.exceptions import InvalidContentType, JSONDataNotFound
+from elife_api_validator.media_type import MediaType
+from elife_api_validator.validators.response_validator import ResponseValidator
 from elife_api_validator.schema_finder import PathBasedSchemaFinder, SchemaFinder
 
 
-class JSONResponseValidator(MessageValidator):
+class Response(ABC):
+    @property
+    @abstractmethod
+    def headers(self) -> dict:
+        raise NotImplementedError
 
-    def __init__(self, schema_finder: SchemaFinder = None):
+
+class JSONResponseValidator(ResponseValidator):
+
+    valid_type_pattern = 'application\/([a-z-\.]*\+)json'
+
+    def __init__(self, schema_finder: SchemaFinder = None) -> None:
         """
 
         :param schema_finder:
         """
         self._schema_finder = schema_finder
 
-    def validate(self, respsonse):
-        '''
-        # validate(message):
+    @staticmethod
+    def extract_response_data(response: Response) -> Optional[dict]:
+        """Attempt to extract JSON data from the response.
+        We currently support the following Response types:
 
-        - check for content type but no body error
-        - check for body but no content type error
-        - check for empty content type
+        - werkzeug.wrappers.Response
+        - requests.Response
 
-        - check media type, raise 'message has invalid content-type header' if invalid
+        :param response:
+        :return:
+        """
+        data = None
 
-        - check media type matches type ('~application\/([a-z-\.]*\+)json~')
+        try:
+            # handles werkzeug.wrappers.Response
+            data = json.loads(response.data.decode('UTF-8'))
+        except AttributeError:
+            # handles requests.Response type
+            data = response.json()
+        finally:
+            if data:
+                return data
+            else:
+                raise JSONDataNotFound('Unable to find JSON data in the response')
 
+    @staticmethod
+    def format_json_str(data: str) -> str:
+        """Formats a string containing JSON data into a readable,
+        indented form.
 
-        - Grab schema for media type
+        :param data: str
+        :rtype: str
+        """
+        return json.dumps(data, sort_keys=True, indent=2, separators=(',', ': '))
 
-        - check message body against schema for is valid
-        - pass back violations for Exception
+    def validate(self, response: Response) -> bool:
+        """
 
-        '''
-        pass
+        :param response:
+        :return:
+        """
+        media_type = MediaType(content_type=response.headers.get('Content-Type'))
+
+        if not media_type.matches_type(pattern=self.valid_type_pattern):
+            raise InvalidContentType('{} is an invalid type'.format(media_type.content_type))
+
+        schema_path = self.schema_finder.find_schema_for(media_type=media_type)
+
+        data = self.extract_response_data(response)
+
+        try:
+            with open(schema_path) as schema_file:
+                validate_json(data, schema=json.load(schema_file))
+        except ValidationError as err:
+
+            output = '{0},\n\ndata: {1}\n\nschema: {2}'.format(err.message,
+                                                               self.format_json_str(err.instance),
+                                                               self.format_json_str(err.schema))
+            raise ValidationError(output)
 
     @property
     def schema_finder(self):
         if not self._schema_finder:
             self._schema_finder = PathBasedSchemaFinder()
-        return self.schema_finder
+        return self._schema_finder
 
+    def __repr__(self):
+        return '{0}({1})'.format(self.__class__.__name__, self.schema_finder)
