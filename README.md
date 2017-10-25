@@ -22,7 +22,7 @@ To validate a response:
 ```python
 import requests
 
-from elife_api_validator.validators.json_validators import JSONResponseValidator
+from elife_api_validator.validators import JSONResponseValidator
 
 >>> response = requests.get('https://api.elifesciences.org/articles')
 >>> JSONResponseValidator.validate(response)
