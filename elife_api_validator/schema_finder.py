@@ -26,7 +26,12 @@ class PathBasedSchemaFinder(SchemaFinder):
         self._schema_dir = schema_dir
 
     def find_schema_for(self, media_type: MediaType) -> str:
-        """
+        """Attempts to find the schema file path for a given content type.
+
+        >>> media_type = MediaType('application/vnd.elife.valid-data+json; version=1')
+        >>> finder = PathBasedSchemaFinder(schema_dir='test/test_schemas')
+        >>> print(finder.find_schema_for(media_type)
+        'test/test_schemas/valid-data.v1.json'
 
         :param :media_type: :class: `MediaType`
         :rtype: str
