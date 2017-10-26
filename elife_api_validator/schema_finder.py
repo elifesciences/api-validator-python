@@ -15,7 +15,7 @@ class SchemaFinder(ABC):
 
 class PathBasedSchemaFinder(SchemaFinder):
 
-    error_content_type = 'application/problem+json'
+    error_media_type = 'application/problem+json'
     ext = 'json'
 
     def __init__(self, schema_dir: str = SCHEMA_DIRECTORY) -> None:
@@ -53,7 +53,7 @@ class PathBasedSchemaFinder(SchemaFinder):
         :param :media_type: :class: `MediaType`
         :rtype: str
         """
-        if media_type.content_type == self.error_content_type:
+        if str(media_type) == self.error_media_type:
             return os.path.join(self.schema_dir, 'error.v1.json')
 
         path = os.path.join(self.schema_dir,

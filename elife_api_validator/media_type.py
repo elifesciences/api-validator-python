@@ -7,16 +7,12 @@ class MediaType(object):
     params = {}
     type = ''
 
-    def __init__(self, content_type: str) -> None:
-        self._content_type = content_type
-        if self._content_type:
-            self._parse_content_type(self._content_type)
+    def __init__(self, media_type: str) -> None:
+        self._media_type = media_type
+        if self._media_type:
+            self._parse_content_type(self._media_type)
         else:
             raise MissingContentType('Please supply a content type')
-
-    @property
-    def content_type(self) -> str:
-        return self._content_type
 
     def _parse_content_type(self, content_type: str) -> None:
         """Parse content type string and assign type value and
@@ -38,7 +34,7 @@ class MediaType(object):
         :rtype: bool
         """
         _pattern = re.compile(pattern)
-        result = _pattern.match(self._content_type)
+        result = _pattern.match(self._media_type)
         if result and result.group():
             return True
         return False
@@ -63,4 +59,7 @@ class MediaType(object):
         return params
 
     def __repr__(self) -> str:
-        return '{0}({1!r})'.format(self.__class__.__name__, self._content_type)
+        return '{0}({1!r})'.format(self.__class__.__name__, self._media_type)
+
+    def __str__(self) -> str:
+        return self._media_type

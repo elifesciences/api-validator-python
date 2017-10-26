@@ -69,10 +69,10 @@ class JSONResponseValidator(ResponseValidator):
         :param response:
         :return:
         """
-        media_type = MediaType(content_type=response.headers.get('Content-Type'))
+        media_type = MediaType(media_type=response.headers.get('Content-Type'))
 
         if not media_type.matches_type(pattern=self.valid_type_pattern):
-            raise InvalidContentType('{} is an invalid type'.format(media_type.content_type))
+            raise InvalidContentType('{!s} is an invalid type'.format(media_type))
 
         schema_path = self.schema_finder.find_schema_for(media_type=media_type)
 
