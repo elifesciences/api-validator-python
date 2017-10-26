@@ -23,31 +23,26 @@ def test_it_can_have_a_custom_schema_directory_passed_to_init():
     assert finder.schema_dir == custom_dir
 
 
-def test_it_fails_if_schema_cannot_be_found():
-    finder = PathBasedSchemaFinder(schema_dir='test/test_schemas')
-
+def test_it_fails_if_schema_cannot_be_found(finder):
     with pytest.raises(SchemaNotFound):
         media_type = MediaType('application/invlalid.type')
         finder.find_schema_for(media_type)
 
 
-def test_it_should_find_schema_for_valid_media_type():
-    finder = PathBasedSchemaFinder(schema_dir='test/test_schemas')
+def test_it_should_find_schema_for_valid_media_type(finder):
     media_type = MediaType('application/vnd.elife.valid-data+json; version=1')
     assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v1.json'
 
 
-def test_it_should_find_schema_for_problem_json_error_response():
+def test_it_should_find_schema_for_problem_json_error_response(finder):
     content_type = 'application/problem+json'
     media_type = MediaType(content_type)
     schema_dir = 'test/test_schemas'
 
-    finder = PathBasedSchemaFinder(schema_dir=schema_dir)
     assert finder.find_schema_for(media_type) == schema_dir + '/error.v1.json'
 
 
-def test_it_should_find_the_correct_alternate_version_from_media_type():
-    finder = PathBasedSchemaFinder(schema_dir='test/test_schemas')
+def test_it_should_find_the_correct_alternate_version_from_media_type(finder):
     media_type = MediaType('application/vnd.elife.valid-data+json; version=2')
     assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v2.json'
 
