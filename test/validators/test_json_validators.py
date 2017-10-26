@@ -1,6 +1,7 @@
 import pytest
 from jsonschema import ValidationError
 import requests
+from requests import Response
 import requests_mock
 
 from elife_api_validator.exceptions import (
@@ -10,6 +11,12 @@ from elife_api_validator.exceptions import (
 )
 from elife_api_validator.schema_finder import PathBasedSchemaFinder
 from elife_api_validator.validators.json_validators import JSONResponseValidator
+
+
+def response_generator(url: str, headers: dict, data: dict = {}) -> Response:
+    with requests_mock.Mocker() as mock:
+        mock.get(url, headers=headers, json=data)
+        return requests.get(url)
 
 
 def test_it_will_return_the_correct_repr():
@@ -38,10 +45,7 @@ def test_it_should_validate_a_valid_json_response():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers, json=data)
-        response = requests.get(url)
+    response = response_generator(url, headers, data)
 
     assert response.headers['Content-Type']
     assert not validator.validate(response)
@@ -57,10 +61,7 @@ def test_it_will_validate_an_error_response():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers, json=data)
-        response = requests.get(url)
+    response = response_generator(url, headers, data)
 
     assert response.headers['Content-Type']
     assert not validator.validate(response)
@@ -73,10 +74,7 @@ def test_it_will_raise_error_with_no_content_type_header_in_response():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers, json=data)
-        response = requests.get(url)
+    response = response_generator(url, headers, data)
 
     with pytest.raises(MissingContentType):
         validator.validate(response)
@@ -89,10 +87,7 @@ def test_it_will_raise_error_with_invalid_content_type_header():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers, json=data)
-        response = requests.get(url)
+    response = response_generator(url, headers, data)
 
     with pytest.raises(InvalidContentType):
         validator.validate(response)
@@ -105,10 +100,7 @@ def test_it_should_not_validate_with_invalid_json():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers, json=data)
-        response = requests.get(url)
+    response = response_generator(url, headers, data)
 
     with pytest.raises(ValidationError):
         validator.validate(response)
@@ -120,10 +112,7 @@ def test_it_should_raise_error_if_there_is_no_json_in_response():
 
     finder = PathBasedSchemaFinder('test/test_schemas')
     validator = JSONResponseValidator(schema_finder=finder)
-
-    with requests_mock.Mocker() as mock:
-        mock.get(url, headers=headers)
-        response = requests.get(url)
+    response = response_generator(url, headers)
 
     with pytest.raises(JSONDataNotFound):
         validator.validate(response)

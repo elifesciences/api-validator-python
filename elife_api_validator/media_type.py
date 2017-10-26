@@ -8,41 +8,19 @@ class MediaType(object):
     type = ''
 
     def __init__(self, content_type: str) -> None:
-        """
-        >>> mt = MediaType(content_type='application/vnd.elife.article-list+json; version=1')
-
-        :param content_type: str
-        """
-
         self._content_type = content_type
         if self._content_type:
-            self.parse_content_type(self._content_type)
+            self._parse_content_type(self._content_type)
         else:
             raise MissingContentType('Please supply a content type')
 
     @property
-    def content_type(self):
+    def content_type(self) -> str:
         return self._content_type
 
-    def get_type_str(self) -> str:
-        """Returns a formatted content type string.
-
-        >>> media_type = MediaType('application/vnd.elife.article-list+json; version=1')
-        >>> print(media_type.get_type_str())
-        'article-list.v1'
-
-        :rtype: str
-        """
-        # CHANGE TO REGEX SEARCH !!
-        type_str = self.type.split('.')[-1].replace('application/', '').replace('+json', '')
-
-        return '{type}.v{version}'.format(type=type_str,
-                                          version=self.params.get('version', '1'))
-
-    def parse_content_type(self, content_type: str) -> None:
+    def _parse_content_type(self, content_type: str) -> None:
         """Parse content type string and assign type value and
         and parameter values.
-
 
         :param content_type: str
         :rtype: None
@@ -50,7 +28,7 @@ class MediaType(object):
         data = content_type.split(';')
         self.type = data[0]
         if len(data) > 1:
-            self.params = self.unpack_params(data[1])
+            self.params = self._unpack_params(data[1])
 
     def matches_type(self, pattern: str) -> bool:
         """Accepts a regex pattern and attempts to find a match
@@ -66,10 +44,10 @@ class MediaType(object):
         return False
 
     @staticmethod
-    def unpack_params(params_str: str) -> dict:
+    def _unpack_params(params_str: str) -> dict:
         """Take formatted string and convert to param dict.
 
-        >>> params = MediaType.unpack_params('version=1; charset=utf-8')
+        >>> params = MediaType._unpack_params('version=1; charset=utf-8')
         >>> params
         {'version': '1', 'charset: 'utf-8'}
 
