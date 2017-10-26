@@ -1,1 +1,7 @@
 /api-raml/
+
+__pycache__/
+
+/venv/
+
+/build/
