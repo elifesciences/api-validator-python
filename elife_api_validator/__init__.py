@@ -1,3 +1,6 @@
+"""
+api-validator
+"""
 import os
 
 import elife_api_validator.schemas as schemas
