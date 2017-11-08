@@ -1,5 +1,5 @@
 # eLife API Validator for Python
-================================
+
 This library provides a validator for the [eLife Sciences API](https://github.com/elifesciences/api-raml).
 
 It validates HTTP responses to make sure that they match the schema specification for that media type.
@@ -28,4 +28,6 @@ from elife_api_validator.validators import JSONResponseValidator
 >>> JSONResponseValidator.validate(response)
 
 ```
+
 The validate method will return `None` if valid, otherwise it will raise a `ValidationError` with the appropriate information.
+
