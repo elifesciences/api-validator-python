@@ -10,7 +10,10 @@ fi
 source venv/bin/activate
 
 pip install --requirement requirements.txt
+pip install coveralls
 
 pylint --reports=n elife_api_validator
 flake8 elife_api_validator/ test/
 python -m pytest --junitxml=build/pytest.xml
+
+COVERALLS_REPO_TOKEN=$(cat /etc/coveralls/tokens/elife_api_validator) coveralls
