@@ -42,7 +42,7 @@ def test_it_should_find_schema_for_problem_json_error_response(finder):
     assert finder.find_schema_for(media_type) == schema_dir + '/error.v1.json'
 
 
-def test_it_should_find_the_correct_alternate_version_from_media_type(finder):
+def test_it_finds_the_correct_alternate_version_from_media_type(finder):
     media_type = MediaType('application/vnd.elife.valid-data+json; version=2')
     assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v2.json'
 

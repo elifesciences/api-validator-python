@@ -11,4 +11,4 @@ __version__ = '0.0.1'
 SCHEMA_DIRECTORY = os.path.dirname(schemas.__file__)
 
 
-__all__ = [SCHEMA_DIRECTORY]
+__all__ = ['SCHEMA_DIRECTORY']

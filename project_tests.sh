@@ -12,8 +12,9 @@ source venv/bin/activate
 pip install --requirement requirements.txt
 pip install coveralls
 
-pylint --reports=n elife_api_validator
-flake8 elife_api_validator/ test/
+pip install proofreader==0.0.2
+
+python -m proofreader elife_api_validator/ test/
 coverage run -m pytest --junitxml=build/pytest.xml
 
 COVERALLS_REPO_TOKEN=$(cat /etc/coveralls/tokens/elife-api-validator) coveralls
