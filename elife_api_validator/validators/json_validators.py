@@ -39,8 +39,6 @@ class JSONResponseValidator(ResponseValidator):
         :param response:
         :return:
         """
-        data = None
-
         try:
             # handles werkzeug.wrappers.Response
             data = json.loads(response.data.decode('UTF-8'))
