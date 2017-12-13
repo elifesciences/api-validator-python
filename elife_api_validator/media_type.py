@@ -24,7 +24,7 @@ class MediaType(object):
         data = content_type.split(';')
         self.type = data[0]
         if len(data) > 1:
-            self.params = self._unpack_params(data[1])
+            self.params = self._unpack_params(''.join(data[1:]))
 
     def matches_type(self, pattern: str) -> bool:
         """Accepts a regex pattern and attempts to find a match

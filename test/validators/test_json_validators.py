@@ -50,7 +50,7 @@ def test_it_should_validate_a_valid_json_response(validator):
 
 def test_it_will_validate_an_error_response(validator):
     data = {
-        "title": "No route found for \"GET /invalid\": Method Not Allowed (Allow: OPTIONS)",
+        "title": r"No route found for \"GET /invalid\": Method Not Allowed (Allow: OPTIONS)",
         "type": "about:blank"
     }
     headers = {'Content-Type': 'application/problem+json'}

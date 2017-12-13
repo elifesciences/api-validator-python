@@ -10,23 +10,25 @@ def test_it_can_return_correct_repr():
 def test_it_can_match_type():
     content_type = 'application/vnd.elife.article-list+json; version=1'
     media_type = MediaType(content_type)
-    assert media_type.matches_type('application\/([a-z-\.]*\+)json') is True
+    assert media_type.matches_type(r'application\/([a-z-\.]*\+)json') is True
 
 
 def test_it_will_fail_to_match_invalid_type():
     content_type = 'application/some_invalid_type+something; version=1'
     media_type = MediaType(content_type)
-    assert media_type.matches_type('application\/([a-z-\.]*\+)json') is False
+    assert media_type.matches_type(r'application\/([a-z-\.]*\+)json') is False
 
 
 def test_it_can_unpack_single_param():
-    params = 'version=1'
-    assert MediaType._unpack_params(params) == {'version': '1'}
+    content_type = 'application/vnd.elife.article-list+json; version=1'
+    media_type = MediaType(content_type)
+    assert media_type.params == {'version': '1'}
 
 
 def test_it_can_unpack_mulitple_params():
-    params = 'version=1; charset=utf-8'
-    assert MediaType._unpack_params(params) == {'version': '1', 'charset': 'utf-8'}
+    content_type = 'application/vnd.elife.article-list+json; version=1; charset=utf-8'
+    media_type = MediaType(content_type)
+    assert media_type.params == {'version': '1', 'charset': 'utf-8'}
 
 
 def test_it_can_parse_content_type_on_init():

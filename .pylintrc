@@ -1,6 +1,0 @@
-[MESSAGE CONTROL]
-disable = abstract-method,anomalous-backslash-in-string,invalid-all-object,lost-exception,missing-docstring,too-few-public-methods
-
-good-names = db,id
-function-rgx = [a-z_][a-z0-9_]{2,60}$
-method-rgx = [a-z_][a-z0-9_]{2,60}$

@@ -20,7 +20,7 @@ class Response(ABC):
 
 class JSONResponseValidator(ResponseValidator):
 
-    valid_type_pattern = 'application\/([a-z-\.]*\+)json'
+    valid_type_pattern = r'application\/([a-z-\.]*\+)json'
 
     def __init__(self, schema_finder: SchemaFinder = PathBasedSchemaFinder()) -> None:
         """
@@ -39,19 +39,17 @@ class JSONResponseValidator(ResponseValidator):
         :param response:
         :return:
         """
-        data = None
-
         try:
             # handles werkzeug.wrappers.Response
             data = json.loads(response.data.decode('UTF-8'))
         except AttributeError:
             # handles requests.Response type
             data = response.json()
-        finally:
-            if data:
-                return data
-            else:
-                raise JSONDataNotFound('Unable to find JSON data in the response')
+
+        if not data:
+            raise JSONDataNotFound('Unable to find JSON data in the response')
+
+        return data
 
     @staticmethod
     def _format_json_str(data: str) -> str:
