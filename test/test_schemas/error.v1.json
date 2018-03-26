@@ -7,17 +7,8 @@
         "type": {
             "description": "A URI reference that identifies the problem type",
             "type": "string",
-            "default": "about:blank",
-            "oneOf": [
-                {
-                    "enum": [
-                        "about:blank"
-                    ]
-                },
-                {
-                    "format": "uri"
-                }
-            ]
+            "format": "uri",
+            "default": "about:blank"
         },
         "title": {
             "description": "A short, human-readable summary of the problem type",
