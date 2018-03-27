@@ -1,33 +1,13 @@
-elifeLibrary {
-    def commit
-    def branch
-    stage 'Checkout and branch', {
-        checkout scm
-        commit = elifeGitRevision()
-        branch = elifeGitGenerateBranch 'update_api_raml/'
-    }
-
-    stage "Update", {
+elifeUpdatePipeline(
+    { commit ->
         sh "pip install"
-
         sh "bin/update " + (params.commit ?: "")
         sh "git add --all ."
-    }
-
-    def differences
-    def shortDescription
-    stage 'Commit', {
-        differences = elifeGitDifferences()
-        elifeOnlyIf differences, {
-            def subrepositorySummary = elifeGitSubrepositorySummary 'api-raml'
-            shortDescription = "Updated api-raml to ${subrepositorySummary}"
-            elifeGitCommit shortDescription
-        }
-    }
-
-    stage 'Push and pull-request', {
-        elifeOnlyIf differences, {
-            elifeGithubPullRequest branch, shortDescription, "I have run ${env.BUILD_URL} which resulted in this pull request.", "master"
-        }
-    }
-}
+    },
+    {
+        def subrepositorySummary = elifeGitSubrepositorySummary 'api-raml'
+        return "Updated api-raml to ${subrepositorySummary}"
+    },
+    'update_api_raml/',
+    true
+)
