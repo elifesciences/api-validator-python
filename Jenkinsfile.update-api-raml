@@ -9,5 +9,6 @@ elifeUpdatePipeline(
         return "Updated api-raml to ${subrepositorySummary}"
     },
     'update_api_raml/',
-    true
+    true,
+    'master'
 )
