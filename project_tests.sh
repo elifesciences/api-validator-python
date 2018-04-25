@@ -9,10 +9,8 @@ fi
 
 source venv/bin/activate
 
-pip install --requirement requirements.txt
-pip install coveralls
-
-pip install proofreader==0.0.2
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
 python -m proofreader elife_api_validator/ test/
 coverage run -m pytest --junitxml=build/pytest.xml
