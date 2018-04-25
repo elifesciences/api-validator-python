@@ -1,0 +1,4 @@
+coveralls
+proofreader==0.0.5
+pytest==3.2.1
+requests-mock==1.3.0
