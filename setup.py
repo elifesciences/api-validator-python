@@ -9,9 +9,7 @@ setup(
     packages=['elife_api_validator',
               'elife_api_validator.schemas',
               'elife_api_validator.validators'],
-    package_data={
-        'elife_api_validator/schemas': '*.json'
-    },
+    include_package_data=True,
     license='MIT',
     url='https://github.com/elifesciences/api-validator-python.git',
     maintainer='eLife Sciences Publications Ltd.',
