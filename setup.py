@@ -6,10 +6,10 @@ setup(
     name='api-validator-python',
     version=elife_api_validator.__version__,
     description='Utility for accessing and validating eLife API JSON Schemas.',
-    packages=['elife_api_validator'],
-    package_data={
-        'elife_api_validator/schemas': '*.json'
-    },
+    packages=['elife_api_validator',
+              'elife_api_validator.schemas',
+              'elife_api_validator.validators'],
+    include_package_data=True,
     license='MIT',
     url='https://github.com/elifesciences/api-validator-python.git',
     maintainer='eLife Sciences Publications Ltd.',

@@ -1,0 +1,1 @@
+include elife_api_validator/schemas/*.json
