@@ -61,7 +61,7 @@
                                             "title": "IIIF Image",
                                             "type": "string",
                                             "format": "uri",
-                                            "pattern": "^https://"
+                                            "pattern": "^https://[^/]+(?:/[^?#\\[\\]@]+)?/[^/?#\\[\\]@]+$"
                                         },
                                         "alt": {
                                             "title": "Alternative text",
@@ -294,6 +294,7 @@
                                                                         "insight",
                                                                         "research-advance",
                                                                         "research-article",
+                                                                        "research-communication",
                                                                         "retraction",
                                                                         "registered-report",
                                                                         "replication-study",
