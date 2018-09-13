@@ -1,3 +1,4 @@
+import os
 import pytest
 
 from elife_api_validator import SCHEMA_DIRECTORY
@@ -31,20 +32,22 @@ def test_it_fails_if_schema_cannot_be_found(finder):
 
 def test_it_should_find_schema_for_valid_media_type(finder):
     media_type = MediaType('application/vnd.elife.valid-data+json; version=1')
-    assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v1.json'
+    assert finder.find_schema_for(media_type) == os.path.join('test', 'test_schemas',
+                                                              'valid-data.v1.json')
 
 
 def test_it_should_find_schema_for_problem_json_error_response(finder):
     content_type = 'application/problem+json'
     media_type = MediaType(content_type)
-    schema_dir = 'test/test_schemas'
+    schema_dir = os.path.join('test', 'test_schemas')
 
-    assert finder.find_schema_for(media_type) == schema_dir + '/error.v1.json'
+    assert finder.find_schema_for(media_type) == os.path.join(schema_dir, 'error.v1.json')
 
 
 def test_it_finds_the_correct_alternate_version_from_media_type(finder):
     media_type = MediaType('application/vnd.elife.valid-data+json; version=2')
-    assert finder.find_schema_for(media_type) == 'test/test_schemas/valid-data.v2.json'
+    assert finder.find_schema_for(media_type) == os.path.join('test', 'test_schemas',
+                                                              'valid-data.v2.json')
 
 
 def test_it_can_get_schema_str_from_media_type():

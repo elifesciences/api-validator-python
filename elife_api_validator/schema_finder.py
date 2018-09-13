@@ -53,10 +53,11 @@ class PathBasedSchemaFinder(SchemaFinder):
         :param :media_type: :class: `MediaType`
         :rtype: str
         """
+        schema_dir = os.sep.join(self.schema_dir.split('/'))
         if str(media_type) == self.error_media_type:
-            return os.path.join(self.schema_dir, 'error.v1.json')
+            return os.path.join(schema_dir, 'error.v1.json')
 
-        path = os.path.join(self.schema_dir,
+        path = os.path.join(schema_dir,
                             self.get_schema_name(media_type) + '.{}'.format(self.ext))
 
         if os.path.exists(path):
