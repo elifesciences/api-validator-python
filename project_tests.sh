@@ -8,7 +8,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 
-python -m proofreader elife_api_validator/ test/
 coverage run -m pytest --junitxml=build/pytest.xml
 
 COVERALLS_REPO_TOKEN=$(cat /etc/coveralls/tokens/elife-api-validator) coveralls
