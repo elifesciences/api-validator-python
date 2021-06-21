@@ -131,6 +131,9 @@
                             "type": "object",
                             "properties": {
                                 "thumbnail": {
+                                    "$ref": "#/allOf/0/allOf/0/properties/image/properties/social"
+                                },
+                                "social": {
                                     "$schema": "http://json-schema.org/draft-04/schema#",
                                     "title": "IIIF image",
                                     "type": "object",
@@ -202,9 +205,6 @@
                                             ]
                                         }
                                     ]
-                                },
-                                "social": {
-                                    "$ref": "#/allOf/0/allOf/0/properties/image/properties/thumbnail"
                                 }
                             },
                             "anyOf": [
@@ -243,7 +243,37 @@
                                 "content": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/allOf/0/allOf/1/properties/ethics/items"
+                                        "oneOf": [
+                                            {
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "section"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "$ref": "#/allOf/0/allOf/1/properties/additionalFiles/items/allOf/2/properties/id"
+                                                    },
+                                                    "title": {
+                                                        "title": "Text",
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "content": {
+                                                        "description": "Content",
+                                                        "type": "array",
+                                                        "items": {
+                                                            "$ref": "#/allOf/0/allOf/1/properties/ethics/items"
+                                                        },
+                                                        "minItems": 1
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "$ref": "#/allOf/0/allOf/1/properties/ethics/items"
+                                            }
+                                        ]
                                     },
                                     "minItems": 1
                                 }
@@ -677,10 +707,7 @@
                                         "type": "object",
                                         "properties": {
                                             "id": {
-                                                "$schema": "http://json-schema.org/draft-04/schema#",
-                                                "title": "HTML ID",
-                                                "type": "string",
-                                                "pattern": "^[^\\s]+$"
+                                                "$ref": "#/allOf/0/allOf/1/properties/additionalFiles/items/allOf/2/properties/id"
                                             },
                                             "date": {
                                                 "$schema": "http://json-schema.org/draft-04/schema#",
@@ -768,7 +795,7 @@
                                         "type": "object",
                                         "properties": {
                                             "id": {
-                                                "$ref": "#/allOf/0/allOf/1/properties/dataSets/properties/used/items/properties/id"
+                                                "$ref": "#/allOf/0/allOf/1/properties/additionalFiles/items/allOf/2/properties/id"
                                             },
                                             "source": {
                                                 "allOf": [
@@ -888,7 +915,7 @@
                                                                     ]
                                                                 },
                                                                 "id": {
-                                                                    "$ref": "#/allOf/0/allOf/1/properties/dataSets/properties/used/items/properties/id"
+                                                                    "$ref": "#/allOf/0/allOf/1/properties/additionalFiles/items/allOf/2/properties/id"
                                                                 },
                                                                 "label": {
                                                                     "type": "string"
@@ -916,7 +943,7 @@
                                                                     ]
                                                                 },
                                                                 "id": {
-                                                                    "$ref": "#/allOf/0/allOf/1/properties/dataSets/properties/used/items/properties/id"
+                                                                    "$ref": "#/allOf/0/allOf/1/properties/additionalFiles/items/allOf/2/properties/id"
                                                                 },
                                                                 "tables": {
                                                                     "type": "array",
@@ -952,7 +979,10 @@
                                     {
                                         "properties": {
                                             "id": {
-                                                "$ref": "#/allOf/0/allOf/1/properties/dataSets/properties/used/items/properties/id"
+                                                "$schema": "http://json-schema.org/draft-04/schema#",
+                                                "title": "HTML ID",
+                                                "type": "string",
+                                                "pattern": "^[^\\s]+$"
                                             },
                                             "doi": {
                                                 "$ref": "#/allOf/0/allOf/0/properties/doi"

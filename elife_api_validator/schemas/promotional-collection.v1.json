@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Collection",
+    "title": "Promotional collection",
     "type": "object",
     "allOf": [
         {
             "$schema": "http://json-schema.org/draft-04/schema#",
-            "title": "Collection snippet",
+            "title": "Promotional collection snippet",
             "type": "object",
             "properties": {
                 "id": {
@@ -19,7 +19,7 @@
                     "type": "string"
                 },
                 "impactStatement": {
-                    "description": "Description of the collection",
+                    "description": "Description of the promotional collection",
                     "type": "string"
                 },
                 "published": {
@@ -38,6 +38,53 @@
                     "type": "object",
                     "properties": {
                         "thumbnail": {
+                            "$ref": "#/allOf/1/properties/image/properties/social"
+                        }
+                    },
+                    "required": [
+                        "thumbnail"
+                    ]
+                },
+                "subjects": {
+                    "description": "Promotional collection subjects",
+                    "type": "array",
+                    "items": {
+                        "$schema": "http://json-schema.org/draft-04/schema#",
+                        "title": "Subject snippet",
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "$ref": "#/allOf/0/properties/id"
+                            },
+                            "name": {
+                                "description": "Name",
+                                "type": "string",
+                                "minLength": 1
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "id",
+                "title",
+                "published",
+                "image"
+            ]
+        },
+        {
+            "properties": {
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "banner": {
+                            "$ref": "#/allOf/1/properties/image/properties/social"
+                        },
+                        "social": {
                             "$schema": "http://json-schema.org/draft-04/schema#",
                             "title": "IIIF image",
                             "type": "object",
@@ -74,10 +121,7 @@
                                             "type": "object",
                                             "properties": {
                                                 "mediaType": {
-                                                    "$schema": "http://json-schema.org/draft-04/schema#",
-                                                    "title": "Media type",
-                                                    "type": "string",
-                                                    "pattern": "^([a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+/[a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+)(; *[a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+=(([a-zA-Z0-9\\.\\-]+)|(\".+\")))*$"
+                                                    "$ref": "#/allOf/1/properties/podcastEpisodes/items/properties/sources/items/properties/mediaType/allOf/0"
                                                 },
                                                 "uri": {
                                                     "title": "Source data URI",
@@ -148,72 +192,11 @@
                         }
                     },
                     "required": [
-                        "thumbnail"
-                    ]
-                },
-                "subjects": {
-                    "description": "Collection subjects",
-                    "type": "array",
-                    "items": {
-                        "$schema": "http://json-schema.org/draft-04/schema#",
-                        "title": "Subject snippet",
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "$ref": "#/allOf/0/properties/id"
-                            },
-                            "name": {
-                                "description": "Name",
-                                "type": "string",
-                                "minLength": 1
-                            }
-                        },
-                        "required": [
-                            "id",
-                            "name"
-                        ]
-                    }
-                },
-                "selectedCurator": {
-                    "allOf": [
-                        {
-                            "$ref": "#/allOf/1/properties/curators/items"
-                        },
-                        {
-                            "properties": {
-                                "etAl": {
-                                    "description": "If there are more curators.",
-                                    "type": "boolean",
-                                    "default": false
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
-            "required": [
-                "id",
-                "title",
-                "published",
-                "image",
-                "selectedCurator"
-            ]
-        },
-        {
-            "properties": {
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "banner": {
-                            "$ref": "#/allOf/0/properties/image/properties/thumbnail"
-                        }
-                    },
-                    "required": [
                         "banner"
                     ]
                 },
-                "curators": {
-                    "description": "List of curators, ordered by name",
+                "editors": {
+                    "description": "List of editors, ordered by name",
                     "type": "array",
                     "items": {
                         "$schema": "http://json-schema.org/draft-04/schema#",
@@ -286,7 +269,7 @@
                                         ]
                                     },
                                     "image": {
-                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                        "$ref": "#/allOf/1/properties/image/properties/social"
                                     }
                                 },
                                 "required": [
@@ -295,8 +278,7 @@
                                 ]
                             }
                         ]
-                    },
-                    "minItems": 1
+                    }
                 },
                 "summary": {
                     "title": "Summary",
@@ -453,10 +435,10 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "thumbnail": {
-                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                                        "$ref": "#/allOf/1/properties/image/properties/social"
                                                     },
                                                     "social": {
-                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                                        "$ref": "#/allOf/1/properties/image/properties/social"
                                                     }
                                                 },
                                                 "anyOf": [
@@ -575,6 +557,146 @@
                                                             "type": {
                                                                 "type": "string",
                                                                 "enum": [
+                                                                    "digest"
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "Digest snippet",
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "$ref": "#/allOf/0/properties/id"
+                                                            },
+                                                            "title": {
+                                                                "description": "Title",
+                                                                "type": "string"
+                                                            },
+                                                            "impactStatement": {
+                                                                "description": "Description of the digest",
+                                                                "type": "string"
+                                                            },
+                                                            "stage": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "preview",
+                                                                    "published"
+                                                                ]
+                                                            },
+                                                            "published": {
+                                                                "title": "Publication date (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "updated": {
+                                                                "title": "Updated date (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "image": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "thumbnail": {
+                                                                        "$ref": "#/allOf/1/properties/image/properties/social"
+                                                                    },
+                                                                    "social": {
+                                                                        "$ref": "#/allOf/1/properties/image/properties/social"
+                                                                    }
+                                                                },
+                                                                "required": [
+                                                                    "thumbnail"
+                                                                ]
+                                                            },
+                                                            "subjects": {
+                                                                "description": "Digest subjects",
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "$ref": "#/allOf/0/properties/subjects/items"
+                                                                },
+                                                                "uniqueItems": true
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "title",
+                                                            "stage",
+                                                            "image"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "allOf": [
+                                                    {
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "event"
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "Event snippet",
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "$ref": "#/allOf/0/properties/id"
+                                                            },
+                                                            "title": {
+                                                                "description": "Title",
+                                                                "type": "string"
+                                                            },
+                                                            "impactStatement": {
+                                                                "description": "Description of the article",
+                                                                "type": "string"
+                                                            },
+                                                            "published": {
+                                                                "title": "Publication date (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "updated": {
+                                                                "title": "Updated date (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "starts": {
+                                                                "description": "Start date/time (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "ends": {
+                                                                "description": "Ends date/time (UTC)",
+                                                                "$ref": "#/allOf/0/properties/updated"
+                                                            },
+                                                            "timezone": {
+                                                                "description": "Timezone (from the IANA time zone database) for non-online events",
+                                                                "type": "string",
+                                                                "pattern": "^[A-Za-z]+(/[A-Za-z_-]+)+$"
+                                                            },
+                                                            "uri": {
+                                                                "description": "URI if the event details are held elsewhere",
+                                                                "type": "string",
+                                                                "format": "uri"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "title",
+                                                            "published",
+                                                            "starts",
+                                                            "ends"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "allOf": [
+                                                    {
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": [
                                                                     "interview"
                                                                 ]
                                                             }
@@ -594,7 +716,7 @@
                                                                         "$ref": "#/allOf/0/properties/id"
                                                                     },
                                                                     "interviewee": {
-                                                                        "$ref": "#/allOf/1/properties/curators/items/allOf/0"
+                                                                        "$ref": "#/allOf/1/properties/editors/items/allOf/0"
                                                                     },
                                                                     "title": {
                                                                         "title": "Title of the interview",
@@ -618,7 +740,7 @@
                                                                         "type": "object",
                                                                         "properties": {
                                                                             "thumbnail": {
-                                                                                "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                                                                "$ref": "#/allOf/1/properties/image/properties/social"
                                                                             }
                                                                         }
                                                                     }
@@ -693,7 +815,7 @@
                                 "type": "object",
                                 "properties": {
                                     "thumbnail": {
-                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                        "$ref": "#/allOf/1/properties/image/properties/social"
                                     }
                                 },
                                 "required": [
@@ -708,7 +830,10 @@
                                         "mediaType": {
                                             "allOf": [
                                                 {
-                                                    "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/1/properties/source/properties/mediaType"
+                                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                                    "title": "Media type",
+                                                    "type": "string",
+                                                    "pattern": "^([a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+/[a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+)(; *[a-zA-Z0-9!#$%^&\\*_\\-\\+{}\\|'.`~]+=(([a-zA-Z0-9\\.\\-]+)|(\".+\")))*$"
                                                 },
                                                 {
                                                     "pattern": "^audio/"
@@ -742,7 +867,6 @@
                 }
             },
             "required": [
-                "curators",
                 "content"
             ]
         }

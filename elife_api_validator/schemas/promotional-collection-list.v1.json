@@ -1,19 +1,19 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Digest list",
+    "title": "Promotional collection list",
     "type": "object",
     "properties": {
         "total": {
-            "title": "Total number of digests",
+            "title": "Total number of promotional collections",
             "type": "integer",
             "minimum": 0
         },
         "items": {
-            "title": "Digests",
+            "title": "Promotional collections",
             "type": "array",
             "items": {
                 "$schema": "http://json-schema.org/draft-04/schema#",
-                "title": "Digest snippet",
+                "title": "Promotional collection snippet",
                 "type": "object",
                 "properties": {
                     "id": {
@@ -27,15 +27,8 @@
                         "type": "string"
                     },
                     "impactStatement": {
-                        "description": "Description of the digest",
+                        "description": "Description of the promotional collection",
                         "type": "string"
-                    },
-                    "stage": {
-                        "type": "string",
-                        "enum": [
-                            "preview",
-                            "published"
-                        ]
                     },
                     "published": {
                         "title": "Publication date (UTC)",
@@ -160,9 +153,6 @@
                                         ]
                                     }
                                 ]
-                            },
-                            "social": {
-                                "$ref": "#/properties/items/items/properties/image/properties/thumbnail"
                             }
                         },
                         "required": [
@@ -170,7 +160,7 @@
                         ]
                     },
                     "subjects": {
-                        "description": "Digest subjects",
+                        "description": "Promotional collection subjects",
                         "type": "array",
                         "items": {
                             "$schema": "http://json-schema.org/draft-04/schema#",
@@ -190,14 +180,13 @@
                                 "id",
                                 "name"
                             ]
-                        },
-                        "uniqueItems": true
+                        }
                     }
                 },
                 "required": [
                     "id",
                     "title",
-                    "stage",
+                    "published",
                     "image"
                 ]
             },

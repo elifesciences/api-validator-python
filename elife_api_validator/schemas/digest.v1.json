@@ -45,6 +45,9 @@
                     "type": "object",
                     "properties": {
                         "thumbnail": {
+                            "$ref": "#/allOf/0/properties/image/properties/social"
+                        },
+                        "social": {
                             "$schema": "http://json-schema.org/draft-04/schema#",
                             "title": "IIIF image",
                             "type": "object",
@@ -353,7 +356,25 @@
                                                                     ]
                                                                 },
                                                                 {
-                                                                    "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                                                    "title": "Paragraph",
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "type": {
+                                                                            "type": "string",
+                                                                            "enum": [
+                                                                                "paragraph"
+                                                                            ]
+                                                                        },
+                                                                        "text": {
+                                                                            "title": "Text",
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "required": [
+                                                                        "type",
+                                                                        "text"
+                                                                    ]
                                                                 },
                                                                 {
                                                                     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -364,7 +385,7 @@
                                                                             "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/12/allOf/0"
                                                                         },
                                                                         {
-                                                                            "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/0"
+                                                                            "$ref": "#/allOf/0/properties/image/properties/social/allOf/0"
                                                                         },
                                                                         {
                                                                             "properties": {
@@ -404,7 +425,7 @@
                                                                                                 "items": {
                                                                                                     "oneOf": [
                                                                                                         {
-                                                                                                            "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/3"
                                                                                                         },
                                                                                                         {
                                                                                                             "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/2"
@@ -512,7 +533,7 @@
                                                                                         "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/12/allOf/0"
                                                                                     },
                                                                                     {
-                                                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/0"
+                                                                                        "$ref": "#/allOf/0/properties/image/properties/social/allOf/0"
                                                                                     },
                                                                                     {
                                                                                         "properties": {
@@ -534,7 +555,7 @@
                                                                                         ]
                                                                                     },
                                                                                     {
-                                                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/1/properties/source"
+                                                                                        "$ref": "#/allOf/0/properties/image/properties/social/allOf/1/properties/source"
                                                                                     }
                                                                                 ]
                                                                             }
@@ -575,7 +596,7 @@
                                                                 ]
                                                             },
                                                             "image": {
-                                                                "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                                                "$ref": "#/allOf/0/properties/image/properties/social"
                                                             },
                                                             "inline": {
                                                                 "type": "boolean"
@@ -595,7 +616,7 @@
                                                 "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/2"
                                             },
                                             {
-                                                "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/3"
                                             },
                                             {
                                                 "$schema": "http://json-schema.org/draft-04/schema#",
@@ -617,7 +638,7 @@
                                                         "title": "Answer",
                                                         "type": "array",
                                                         "items": {
-                                                            "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/3"
                                                         },
                                                         "minItems": 1
                                                     }
@@ -643,7 +664,7 @@
                                                         "title": "Text",
                                                         "type": "array",
                                                         "items": {
-                                                            "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/3"
                                                         },
                                                         "minItems": 1
                                                     },
@@ -669,7 +690,7 @@
                                                         "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/12/allOf/0"
                                                     },
                                                     {
-                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/0"
+                                                        "$ref": "#/allOf/0/properties/image/properties/social/allOf/0"
                                                     },
                                                     {
                                                         "properties": {
@@ -690,7 +711,7 @@
                                                                         "mediaType": {
                                                                             "allOf": [
                                                                                 {
-                                                                                    "$ref": "#/allOf/0/properties/image/properties/thumbnail/allOf/1/properties/source/properties/mediaType"
+                                                                                    "$ref": "#/allOf/0/properties/image/properties/social/allOf/1/properties/source/properties/mediaType"
                                                                                 },
                                                                                 {
                                                                                     "pattern": "^video/"
@@ -712,7 +733,7 @@
                                                                 "minItems": 1
                                                             },
                                                             "placeholder": {
-                                                                "$ref": "#/allOf/0/properties/image/properties/thumbnail"
+                                                                "$ref": "#/allOf/0/properties/image/properties/social"
                                                             },
                                                             "width": {
                                                                 "title": "Width",
@@ -768,7 +789,7 @@
                                                                             "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/2"
                                                                         },
                                                                         {
-                                                                            "$ref": "#/allOf/1/properties/relatedContent/items/oneOf/0/allOf/0/properties/abstract/properties/content/items"
+                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/3"
                                                                         },
                                                                         {
                                                                             "properties": {
@@ -960,6 +981,7 @@
                                                     "retraction",
                                                     "registered-report",
                                                     "replication-study",
+                                                    "review-article",
                                                     "scientific-correspondence",
                                                     "short-report",
                                                     "tools-resources"
@@ -1027,37 +1049,27 @@
                                                 },
                                                 "uniqueItems": true
                                             },
-                                            "abstract": {
+                                            "image": {
                                                 "type": "object",
                                                 "properties": {
-                                                    "content": {
-                                                        "type": "array",
-                                                        "items": {
-                                                            "$schema": "http://json-schema.org/draft-04/schema#",
-                                                            "title": "Paragraph",
-                                                            "type": "object",
-                                                            "properties": {
-                                                                "type": {
-                                                                    "type": "string",
-                                                                    "enum": [
-                                                                        "paragraph"
-                                                                    ]
-                                                                },
-                                                                "text": {
-                                                                    "title": "Text",
-                                                                    "type": "string"
-                                                                }
-                                                            },
-                                                            "required": [
-                                                                "type",
-                                                                "text"
-                                                            ]
-                                                        },
-                                                        "minItems": 1
+                                                    "thumbnail": {
+                                                        "$ref": "#/allOf/0/properties/image/properties/social"
+                                                    },
+                                                    "social": {
+                                                        "$ref": "#/allOf/0/properties/image/properties/social"
                                                     }
                                                 },
-                                                "required": [
-                                                    "content"
+                                                "anyOf": [
+                                                    {
+                                                        "required": [
+                                                            "thumbnail"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "required": [
+                                                            "social"
+                                                        ]
+                                                    }
                                                 ]
                                             }
                                         },
@@ -1108,25 +1120,6 @@
                                             "figuresPdf": {
                                                 "type": "string",
                                                 "format": "uri"
-                                            },
-                                            "abstract": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "doi": {
-                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/1/properties/doi"
-                                                    }
-                                                }
-                                            },
-                                            "image": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "thumbnail": {
-                                                        "$ref": "#/allOf/0/properties/image/properties/thumbnail"
-                                                    }
-                                                },
-                                                "required": [
-                                                    "thumbnail"
-                                                ]
                                             }
                                         }
                                     }

@@ -25,19 +25,19 @@
                 },
                 "closingDate": {
                     "title": "Updated date (UTC)",
+                    "$ref": "#/allOf/0/properties/published"
+                },
+                "published": {
+                    "title": "Publication date (UTC)",
                     "$schema": "http://json-schema.org/draft-04/schema#",
                     "description": "eLife restriction over the ISO8601 standard\n\nFor example:\n    - 2016-09-16T12:34:56Z\n",
                     "type": "string",
                     "format": "date-time",
                     "pattern": "^....-..-..T..:..:..Z$"
                 },
-                "published": {
-                    "title": "Publication date (UTC)",
-                    "$ref": "#/allOf/0/properties/closingDate"
-                },
                 "updated": {
                     "title": "Updated date (UTC)",
-                    "$ref": "#/allOf/0/properties/closingDate"
+                    "$ref": "#/allOf/0/properties/published"
                 }
             },
             "required": [
@@ -235,21 +235,10 @@
                                                                     "type": "object",
                                                                     "allOf": [
                                                                         {
-                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/13/allOf/0"
+                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/16/allOf/0"
                                                                         },
                                                                         {
-                                                                            "$schema": "http://json-schema.org/draft-04/schema#",
-                                                                            "title": "Has attribution",
-                                                                            "type": "object",
-                                                                            "properties": {
-                                                                                "attribution": {
-                                                                                    "title": "Attribution",
-                                                                                    "type": "array",
-                                                                                    "items": {
-                                                                                        "type": "string"
-                                                                                    }
-                                                                                }
-                                                                            }
+                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/15/allOf/1"
                                                                         },
                                                                         {
                                                                             "properties": {
@@ -336,6 +325,48 @@
                                             },
                                             {
                                                 "$schema": "http://json-schema.org/draft-04/schema#",
+                                                "title": "Figshare",
+                                                "type": "object",
+                                                "allOf": [
+                                                    {
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "figshare"
+                                                                ]
+                                                            },
+                                                            "id": {
+                                                                "title": "Figshare ID",
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "title": "Title",
+                                                                "type": "string"
+                                                            },
+                                                            "width": {
+                                                                "title": "Width",
+                                                                "type": "integer",
+                                                                "minimum": 1
+                                                            },
+                                                            "height": {
+                                                                "title": "Height",
+                                                                "type": "integer",
+                                                                "minimum": 1
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "type",
+                                                            "id",
+                                                            "title",
+                                                            "width",
+                                                            "height"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "$schema": "http://json-schema.org/draft-04/schema#",
                                                 "title": "Figure",
                                                 "type": "object",
                                                 "properties": {
@@ -354,7 +385,7 @@
                                                                         {
                                                                             "allOf": [
                                                                                 {
-                                                                                    "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/4"
+                                                                                    "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/5"
                                                                                 },
                                                                                 {
                                                                                     "properties": {
@@ -371,7 +402,7 @@
                                                                             "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/4"
                                                                         },
                                                                         {
-                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/12"
+                                                                            "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/15"
                                                                         }
                                                                     ]
                                                                 },
@@ -394,10 +425,10 @@
                                                                                 "type": "object",
                                                                                 "allOf": [
                                                                                     {
-                                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/13/allOf/0"
+                                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/16/allOf/0"
                                                                                     },
                                                                                     {
-                                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/4/allOf/1"
+                                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/15/allOf/1"
                                                                                     },
                                                                                     {
                                                                                         "properties": {
@@ -424,7 +455,7 @@
                                                                                         "type": "object",
                                                                                         "properties": {
                                                                                             "mediaType": {
-                                                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/12/allOf/2/properties/sources/items/properties/mediaType/allOf/0"
+                                                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/15/allOf/2/properties/sources/items/properties/mediaType/allOf/0"
                                                                                             },
                                                                                             "uri": {
                                                                                                 "title": "Source data URI",
@@ -468,7 +499,7 @@
                                                 "type": "object",
                                                 "allOf": [
                                                     {
-                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/13/allOf/0"
+                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/16/allOf/0"
                                                     },
                                                     {
                                                         "properties": {
@@ -482,7 +513,7 @@
                                                                 ]
                                                             },
                                                             "image": {
-                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/8/properties/image"
+                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/10/properties/image"
                                                             },
                                                             "inline": {
                                                                 "type": "boolean"
@@ -491,6 +522,36 @@
                                                         "required": [
                                                             "type",
                                                             "image"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "$schema": "http://json-schema.org/draft-04/schema#",
+                                                "title": "Google map",
+                                                "type": "object",
+                                                "allOf": [
+                                                    {
+                                                        "properties": {
+                                                            "type": {
+                                                                "type": "string",
+                                                                "enum": [
+                                                                    "google-map"
+                                                                ]
+                                                            },
+                                                            "id": {
+                                                                "title": "Google map ID",
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "title": "Title",
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "type",
+                                                            "id",
+                                                            "title"
                                                         ]
                                                     }
                                                 ]
@@ -521,7 +582,7 @@
                                                         "type": "object",
                                                         "allOf": [
                                                             {
-                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/4/allOf/1"
+                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/15/allOf/1"
                                                             },
                                                             {
                                                                 "properties": {
@@ -536,7 +597,7 @@
                                                                         "type": "string"
                                                                     },
                                                                     "source": {
-                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/3/properties/assets/items/allOf/1/properties/sourceData/items/allOf/3"
+                                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/4/properties/assets/items/allOf/1/properties/sourceData/items/allOf/3"
                                                                     },
                                                                     "size": {
                                                                         "type": "object",
@@ -667,14 +728,80 @@
                                             },
                                             {
                                                 "$schema": "http://json-schema.org/draft-04/schema#",
+                                                "title": "Tweet",
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "tweet"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "title": "Tweet ID",
+                                                        "type": "string"
+                                                    },
+                                                    "date": {
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "Partial date",
+                                                        "description": "A date, where the month and/or day may not be known/available.\n\nFor example:\n  - 2016\n  - 2016-09\n  - 2016-09-16\n",
+                                                        "type": "string",
+                                                        "pattern": "^[1-2][0-9]{3}(-((0[1-9])|(1[0-2]))(-((0[1-9])|([1-2][0-9])|(3[0-1])))?)?$"
+                                                    },
+                                                    "text": {
+                                                        "title": "Text",
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "accountId": {
+                                                        "title": "Twitter account ID",
+                                                        "type": "string"
+                                                    },
+                                                    "accountLabel": {
+                                                        "title": "Twitter account label",
+                                                        "type": "string"
+                                                    },
+                                                    "conversation": {
+                                                        "title": "Whether to display the conversation.",
+                                                        "type": "boolean",
+                                                        "default": false
+                                                    },
+                                                    "mediaCard": {
+                                                        "title": "Whether to display the media card.",
+                                                        "type": "boolean",
+                                                        "default": false
+                                                    }
+                                                },
+                                                "required": [
+                                                    "type",
+                                                    "id",
+                                                    "date",
+                                                    "text",
+                                                    "accountId",
+                                                    "accountLabel"
+                                                ]
+                                            },
+                                            {
+                                                "$schema": "http://json-schema.org/draft-04/schema#",
                                                 "title": "Video",
                                                 "type": "object",
                                                 "allOf": [
                                                     {
-                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/13/allOf/0"
+                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/16/allOf/0"
                                                     },
                                                     {
-                                                        "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/2/properties/content/items/oneOf/4/allOf/1"
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "Has attribution",
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "attribution": {
+                                                                "title": "Attribution",
+                                                                "type": "array",
+                                                                "items": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
                                                     },
                                                     {
                                                         "properties": {
@@ -720,7 +847,7 @@
                                                                 "minItems": 1
                                                             },
                                                             "placeholder": {
-                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/8/properties/image"
+                                                                "$ref": "#/allOf/1/properties/content/items/oneOf/0/oneOf/0/oneOf/10/properties/image"
                                                             },
                                                             "width": {
                                                                 "title": "Width",

@@ -37,6 +37,7 @@
                                     "retraction",
                                     "registered-report",
                                     "replication-study",
+                                    "review-article",
                                     "scientific-correspondence",
                                     "short-report",
                                     "tools-resources"
@@ -126,96 +127,6 @@
                                     "minLength": 1
                                 },
                                 "uniqueItems": true
-                            },
-                            "abstract": {
-                                "type": "object",
-                                "properties": {
-                                    "content": {
-                                        "type": "array",
-                                        "items": {
-                                            "$schema": "http://json-schema.org/draft-04/schema#",
-                                            "title": "Paragraph",
-                                            "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                        "paragraph"
-                                                    ]
-                                                },
-                                                "text": {
-                                                    "title": "Text",
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "type",
-                                                "text"
-                                            ]
-                                        },
-                                        "minItems": 1
-                                    }
-                                },
-                                "required": [
-                                    "content"
-                                ]
-                            }
-                        },
-                        "required": [
-                            "status",
-                            "id",
-                            "version",
-                            "type",
-                            "doi",
-                            "title",
-                            "stage",
-                            "volume",
-                            "elocationId"
-                        ]
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "enum": [
-                                    "poa"
-                                ]
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                "$schema": "http://json-schema.org/draft-04/schema#",
-                "title": "Article VoR snippet",
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/items/oneOf/0/allOf/0"
-                    },
-                    {
-                        "properties": {
-                            "status": {
-                                "type": "string",
-                                "enum": [
-                                    "vor"
-                                ]
-                            },
-                            "impactStatement": {
-                                "type": "string",
-                                "minLength": 1
-                            },
-                            "figuresPdf": {
-                                "type": "string",
-                                "format": "uri"
-                            },
-                            "abstract": {
-                                "type": "object",
-                                "properties": {
-                                    "doi": {
-                                        "$ref": "#/items/oneOf/0/allOf/0/properties/doi"
-                                    }
-                                }
                             },
                             "image": {
                                 "type": "object",
@@ -328,11 +239,72 @@
                                                 ]
                                             }
                                         ]
+                                    },
+                                    "social": {
+                                        "$ref": "#/items/oneOf/0/allOf/0/properties/image/properties/thumbnail"
                                     }
                                 },
-                                "required": [
-                                    "thumbnail"
+                                "anyOf": [
+                                    {
+                                        "required": [
+                                            "thumbnail"
+                                        ]
+                                    },
+                                    {
+                                        "required": [
+                                            "social"
+                                        ]
+                                    }
                                 ]
+                            }
+                        },
+                        "required": [
+                            "status",
+                            "id",
+                            "version",
+                            "type",
+                            "doi",
+                            "title",
+                            "stage",
+                            "volume",
+                            "elocationId"
+                        ]
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "enum": [
+                                    "poa"
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "title": "Article VoR snippet",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/items/oneOf/0/allOf/0"
+                    },
+                    {
+                        "properties": {
+                            "status": {
+                                "type": "string",
+                                "enum": [
+                                    "vor"
+                                ]
+                            },
+                            "impactStatement": {
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "figuresPdf": {
+                                "type": "string",
+                                "format": "uri"
                             }
                         }
                     }
