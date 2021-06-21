@@ -1,6 +1,6 @@
 elifeUpdatePipeline(
     { commit ->
-        sh "update-api-raml.sh"
+        sh "./update-api-raml.sh"
         sh "git add --all ."
     },
     {
