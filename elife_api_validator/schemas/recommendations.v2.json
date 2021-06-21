@@ -25,24 +25,57 @@
                                             "content": {
                                                 "type": "array",
                                                 "items": {
-                                                    "$schema": "http://json-schema.org/draft-04/schema#",
-                                                    "title": "Paragraph",
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "type": {
-                                                            "type": "string",
-                                                            "enum": [
-                                                                "paragraph"
-                                                            ]
+                                                    "oneOf": [
+                                                        {
+                                                            "properties": {
+                                                                "type": {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "section"
+                                                                    ]
+                                                                },
+                                                                "id": {
+                                                                    "$schema": "http://json-schema.org/draft-04/schema#",
+                                                                    "title": "HTML ID",
+                                                                    "type": "string",
+                                                                    "pattern": "^[^\\s]+$"
+                                                                },
+                                                                "title": {
+                                                                    "title": "Text",
+                                                                    "type": "string",
+                                                                    "minLength": 1
+                                                                },
+                                                                "content": {
+                                                                    "description": "Content",
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "$ref": "#/properties/items/items/oneOf/0/allOf/0/properties/abstract/properties/content/items/oneOf/1"
+                                                                    },
+                                                                    "minItems": 1
+                                                                }
+                                                            }
                                                         },
-                                                        "text": {
-                                                            "title": "Text",
-                                                            "type": "string"
+                                                        {
+                                                            "$schema": "http://json-schema.org/draft-04/schema#",
+                                                            "title": "Paragraph",
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "type": {
+                                                                    "type": "string",
+                                                                    "enum": [
+                                                                        "paragraph"
+                                                                    ]
+                                                                },
+                                                                "text": {
+                                                                    "title": "Text",
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "type",
+                                                                "text"
+                                                            ]
                                                         }
-                                                    },
-                                                    "required": [
-                                                        "type",
-                                                        "text"
                                                     ]
                                                 },
                                                 "minItems": 1
@@ -67,10 +100,7 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "id": {
-                                                        "$schema": "http://json-schema.org/draft-04/schema#",
-                                                        "title": "eLife ID",
-                                                        "type": "string",
-                                                        "pattern": "^[a-z0-9-]+$"
+                                                        "$ref": "#/properties/items/items/oneOf/1/allOf/1/oneOf/0/allOf/1/properties/id"
                                                     },
                                                     "version": {
                                                         "type": "integer",
@@ -96,10 +126,7 @@
                                                         ]
                                                     },
                                                     "doi": {
-                                                        "$schema": "http://json-schema.org/draft-04/schema#",
-                                                        "title": "DOI",
-                                                        "type": "string",
-                                                        "pattern": "^10[.][0-9]{4,}[^\\s\"/<>]*/[^\\s\"]+$"
+                                                        "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/1/allOf/0/properties/doi"
                                                     },
                                                     "authorLine": {
                                                         "description": "For example:\n  - Ian T Baldwin\n  - Randy Schekman, Mark Patterson\n  - Lee R Berger et al.\n",
@@ -164,6 +191,9 @@
                                                         "type": "object",
                                                         "properties": {
                                                             "thumbnail": {
+                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/social"
+                                                            },
+                                                            "social": {
                                                                 "$schema": "http://json-schema.org/draft-04/schema#",
                                                                 "title": "IIIF image",
                                                                 "type": "object",
@@ -268,9 +298,6 @@
                                                                         ]
                                                                     }
                                                                 ]
-                                                            },
-                                                            "social": {
-                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/thumbnail"
                                                             }
                                                         },
                                                         "anyOf": [
@@ -316,7 +343,10 @@
                                             {
                                                 "properties": {
                                                     "doi": {
-                                                        "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/doi"
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "DOI",
+                                                        "type": "string",
+                                                        "pattern": "^10[.][0-9]{4,}[^\\s\"/<>]*/[^\\s\"]+$"
                                                     }
                                                 }
                                             },
@@ -382,7 +412,10 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "id": {
-                                                        "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/id"
+                                                        "$schema": "http://json-schema.org/draft-04/schema#",
+                                                        "title": "eLife ID",
+                                                        "type": "string",
+                                                        "pattern": "^[a-z0-9-]+$"
                                                     },
                                                     "title": {
                                                         "description": "Title",
@@ -404,7 +437,7 @@
                                                         "type": "object",
                                                         "properties": {
                                                             "thumbnail": {
-                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/thumbnail"
+                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/social"
                                                             }
                                                         },
                                                         "required": [
@@ -420,7 +453,7 @@
                                                             "type": "object",
                                                             "properties": {
                                                                 "id": {
-                                                                    "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/id"
+                                                                    "$ref": "#/properties/items/items/oneOf/1/allOf/1/oneOf/0/allOf/1/properties/id"
                                                                 },
                                                                 "name": {
                                                                     "description": "Name",
@@ -479,7 +512,7 @@
                                                                     {
                                                                         "properties": {
                                                                             "id": {
-                                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/id"
+                                                                                "$ref": "#/properties/items/items/oneOf/1/allOf/1/oneOf/0/allOf/1/properties/id"
                                                                             },
                                                                             "type": {
                                                                                 "title": "Type",
@@ -507,7 +540,7 @@
                                                                                 ]
                                                                             },
                                                                             "image": {
-                                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/thumbnail"
+                                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/social"
                                                                             }
                                                                         },
                                                                         "required": [
@@ -628,7 +661,7 @@
                                                         "type": "object",
                                                         "properties": {
                                                             "thumbnail": {
-                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/thumbnail"
+                                                                "$ref": "#/properties/items/items/oneOf/0/allOf/1/oneOf/0/allOf/0/properties/image/properties/social"
                                                             }
                                                         },
                                                         "required": [
