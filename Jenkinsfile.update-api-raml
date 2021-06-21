@@ -1,7 +1,6 @@
 elifeUpdatePipeline(
     { commit ->
-        sh "pip install"
-        sh "bin/update " + (params.commit ?: "")
+        sh "update-api-raml.sh"
         sh "git add --all ."
     },
     {
