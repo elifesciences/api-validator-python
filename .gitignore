@@ -1,7 +1,5 @@
 /api-raml/
-
+.coverage
 __pycache__/
-
 /venv/
-
 /build/
