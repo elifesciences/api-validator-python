@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/elifesciences/api-validator-python.svg?branch=add_travis_and_coveralls_support)](https://travis-ci.org/elifesciences/api-validator-python)
-
 # eLife API Validator for Python
 
 This library provides a validator for the [eLife Sciences API](https://github.com/elifesciences/api-raml).
