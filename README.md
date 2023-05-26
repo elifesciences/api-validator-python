@@ -4,18 +4,15 @@ This library provides a validator for the [eLife Sciences API](https://github.co
 
 It validates HTTP responses to make sure that they match the schema specification for that media type.
 
-Dependencies
-------------
+## Dependencies
 
 * Python 3.5 or greater
 
-Installation
-------------
+## Installation
 
-`python setup.py install`
+    python setup.py install
 
-Usage
------
+## Usage
 
 To validate a response:
 
