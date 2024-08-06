@@ -28,6 +28,7 @@
                             "enum": [
                                 "correction",
                                 "editorial",
+                                "expression-concern",
                                 "feature",
                                 "insight",
                                 "research-advance",
@@ -407,7 +408,7 @@
                                                 ],
                                                 "onBehalfOf": {
                                                     "type": "string",
-                                                    "minLenght": 1
+                                                    "minLength": 1
                                                 }
                                             }
                                         },
